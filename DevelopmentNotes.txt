@@ -1,0 +1,106 @@
+############### Useful Cut & Paste Values #####################
+	+ xuanyi_chen@hdb.gov.sg
+	+ VBoxManage setextradata "AppEngine-Development-Windows10Professional-v1" "VBoxInternal/Devices/pcbios/0/Config/DmiBoardSerial" "L1HF13J0089VM1"
+	
+############### OpenVPNs #####################
+	+++ Sandbox VPN +++
+	a) For accessing devlopment backend API
+		- Use it when need to do manual test
+		- $ sudo openvpn --config ./client.ovpn
+	+++ GCC VPN +++
+	b) Usually development is done on this
+	
+############### GIT Routines #####################
+	+++ Morning routine for front end only +++	
+		1) git checkout dev
+			- This will switch to dev
+		2) git pull //Do not specify origin or branch, this will pull everything
+		3) git checkout feature-branch
+		4) git rebase dev
+			- If hit conflict, resolve manually by remove the <<< --- >> lines & ensure no duplicate lines
+			- git add ./"specific file"
+			- git rebase --continue
+				> if the [commit text] is display, type ":x" to exit
+				> perform the same until end of rebase
+			- Once "Successfully rebased and updated blahblahblah" is shown
+			- Proceed to evening routine
+	+++ Evening routine +++
+		1) git push --force
+		2) Or,  git push --set-upstream origin hotfix/xy_eslint-plugins-actual-implementation
+
+############### Development Process #####################
+	+++ Pick jira ticket +++
+		1) Go to Jira and assign ticket to myself
+		2) Move the ticket to in progress
+	+++ Before starting development +++
+		1) git checkout dev
+		2) git pull 							\\ Do not specify origin or branch, this will pull everything
+		3) git checkout -b "feature-branch"		\\ Create own branch for development
+	+++ During development +++
+		1) Execute morning routine
+		--------------------------
+		2a) Write test code
+		2b) Execute tests to fail it intentionally
+		3a) Write feature code
+		3b) Execute tests to pass it the test
+		--------------------------
+		4a) Commit local
+		4b) Push up to remote to trigger code scanning process
+		--------------------------
+		5a) Go to BitBucket > Build (left menu) > Select "dev" branch from [top drop down] > Look for my latest build
+		5b)	Check output logs to see if there's any ERROR or WARNINGS from:
+			- Fortify-Scan 
+				> Static Code Analyzer for analyze an application's source code for exploitable vulnerabilities)
+			- Nexus-IQ-Scan
+				> Static Code Analyzer for analyze an application's source code for exploitable vulnerabilities)
+			- Sonarqube-Scan
+				> Static Code Analyzer for analyze an application's source code for exploitable vulnerabilities)
+		--------------------------
+		5) Execute evening routine
+
+############### Useful NPM command #####################
+	+++ LOGIN to HDB sonatype repo +++
+		> npm login --scope=@hdb --registry=https://nexus.ship.gov.sg/repository/hdb-react-eservice-components/
+	+++ INSTALL packages DEV DEPENDENCY +++
+		> npm install <package-name> --save-dev
+		
+############### Update NPM & Node in Ubuntu #####################
+	sudo npm cache clean -f
+	sudo npm install -g n
+	sudo n stable
+	
+############### Useful GIT command #####################
+	+++ DELETE branch in LOCAL +++
+		> git branch -D "Branch Name"
+	+++ DELETE branch in REMOTE +++
+		> git push origin --delete <branch_name>
+	+++ CREATE branch in LOCAL +++
+		> git checkout -b "Branch Name"
+	+++ CREATE branch from branch +++
+		> git checkout -b "Branch Name" "dev"
+	+++ PUSH local branch to REMOTE +++
+		> git push <remote> <branch>
+		> git push origin "hotfix/xy_eslint-plugins"
+		> git push origin "bugfix/xy_eslint-plugins"
+		> git push origin "feature/xy_eslint-plugins"
+		> git push origin "release/xy_eslint-plugins"
+	+++ STASH +++
+		> git stash											// Create stash and save work
+		> git stash save "optional message for yourself"	// Save to stash with message
+		> git stash list									//
+		> git stash apply STASH-NAME applies the changes and leaves a copy in the stash
+		> git stash pop STASH-NAME applies the changes and removes the files from the stash
+
+
+
+
+####
+new report ops:
+	git
+	git commit -m "initial commit"
+	git push origin main
+	
+	
+	
+git config --global user.name "xuanyi_chen"
+git config --global user.email "chen_xuanyi@hdb.gov.sg"

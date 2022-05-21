@@ -1,0 +1,5 @@
+############## File Management ##############
+	1) "rm -rf dirname"
+		- remove directory with files
+	2) ls -la
+		- Show hidden files & folder

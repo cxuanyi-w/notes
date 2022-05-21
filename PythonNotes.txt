@@ -1,0 +1,53 @@
+################# Setup different version of linux ################
+	1) Follow: https://www.linuxcapable.com/how-to-install-python-3-9-on-ubuntu-22-04-lts/
+
+	2) Execute "sudo apt install python3.9-venv"
+
+
+################### create venv ###################
+	1) "python -m venv [actual env name]" or "python3.9 -m venv [actual env name]"
+		> This creates the environment.
+		> Running this command will create the [actual env name] where the command is executed
+
+	2) ".\env\Scripts\activate" or "source env/bin/activate"
+		> This will activate the env
+		*** if encountered the follow, run the "Set-ExecutionPolicy -ExecutionPolicy Unrestricted" in [Elevated Powershell console]
+		----------------------------------------------------------------------------------------------------
+			
+			.\env\Scripts\activate : File Z:\esvc-checkunitinfo\env\Scripts\Activate.ps1 cannot be loaded because running scripts
+			is disabled on this system. For more information, see about_Execution_Policies at
+			https:/go.microsoft.com/fwlink/?LinkID=135170.
+			At line:1 char:1
+			+ .\env\Scripts\activate
+			+ ~~~~~~~~~~~~~~~~~~~~~~
+				+ CategoryInfo          : SecurityError: (:) [], PSSecurityException
+				+ FullyQualifiedErrorId : UnauthorizedAccess
+
+		----------------------------------------------------------------------------------------------------
+	3) In [activated python env], run:
+		- "pip install -r .\requirements.txt" or "pip install -r ./requirements.txt"
+	 
+	5) run "uvicorn main:app --reload" or "uvicorn main:app --reload --host 0.0.0.0"
+
+	6) "deactivate" exit 
+
+
+################### Create different version of Python venv ###################
+	https://stackoverflow.com/questions/1534210/use-different-python-version-with-virtualenv?page=2&tab=scoredesc#tab-top
+
+################### WSL2 Installation ###################
+	1) Add [wind10-user] to administrator from [Admin]
+	2) Execute "wsl --install" in [Elevated CMD]
+
+################### Other useful commands ###################
+	1)autopep8 --in-place --aggressive ./main.py
+		- autoformat with 1 level of aggresiveness
+	2) autopep8 --in-place --aggressive --aggressive ./test.py
+		- autoformat with 2 level of aggresiveness
+	3)
+	*** Note: 
+		Formatting via commands automatically takes from pyproject.toml
+		Aggressive level should be set in pyproject.toml		
+################### Other useful command ###################
+	1) pip list
+		- show list of packages installed and versions
