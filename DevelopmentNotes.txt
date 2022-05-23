@@ -63,7 +63,10 @@
 		> npm login --scope=@hdb --registry=https://nexus.ship.gov.sg/repository/hdb-react-eservice-components/
 	+++ INSTALL packages DEV DEPENDENCY +++
 		> npm install <package-name> --save-dev
-		
+	+++ Npm registry URLS +++
+		> https://nexus.ship.gov.sg/repository/npm-proxy/
+		> https://nexus.ship.gov.sg/repository/hdb-react-eservice-components/https://airbnb.io/javascript/
+			
 ############### Update NPM & Node in Ubuntu #####################
 	sudo npm cache clean -f
 	sudo npm install -g n

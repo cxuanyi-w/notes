@@ -1,0 +1,139 @@
+############### Create a VPC #####################	
+	1) Ensure region is "Asia Pacific (Singapore) ap-southeast-1" to change region
+	2) Go to [Services] Menu and nagvigate to:
+		a) [Networking & Content Delivery] > [VPC]
+	3) Click [Launch VPC Wizard]
+	4) Under [VPC Setting]:
+		a) Under [Resources to create] select "VPC & subnets, etc"
+		b) Under [Name tag auto-generation]:
+			i) Ensure [Auto-generate] is checked
+			ii) And, replace "project" with "Desired Values"
+			iii) Ensure [Tenancy] is "Default"
+		c) Under [Availability Zones (AZs)]:
+			i) Ensure "2" Availability Zones
+			ii) Under [Customize AZs], change if desired
+		d) Under [Number of public subnets], ensure 2
+		e) Under [Number of private subnets, ensure 2 (*** change to 4 if desired)
+		f) Under [Customize subnets CIDR blocks], customize IP ranges for each subnet if desired
+		g) Under [NAT gateways], ensure "None" is selected
+		h) Under [VPC endpoints], sure "S3 Gateway" is selected
+		i) Under [DNS options]
+			i) Ensure "Enable DNS hostnames" checked
+			ii) Ensure "Enable DNS resolution" checked
+	5) Click [Create VPC]
+	*** Notes:
+		- Creating VPC helps to segregate one setup from another
+		- Subnets in VPC is utilize to filter traffic and segregate public from private resources
+		
+############### Create a Role for Lambda #####################
+	1) Go to [Services] Menu and nagvigate to:
+		a) [Security, Identity, & Compliance] > [IAM] 
+			> [Roles] (left menu) > click [Create role] (right side)
+	2) For [Trusted entity type], ensure [AWS service] is selected
+	3) For [Use Case], select [Lambda]
+	4) Click [Next] to go to [Add Permission] page
+	5) In [Add Permission] page, add:
+		a) AWSLambdaBasicExecutionRole
+		b) AWSXRayDaemonWriteAccess
+	6) Click [Next] to go to [Name, review, and create] page
+	7) In [Name, review, and create] page
+		a) In [Role name] textbox, enter "Desired Role Name"
+		b) In [Description] textbox, enter "Desired Description"
+		c) Under [Step 1: Select trusted entities] section, verify json document if necessary
+		d) Under [Step 2: Add permissions], ensure the following items are present:
+			i) AWSLambdaBasicExecutionRole
+			ii) AWSXRayDaemonWriteAccess
+		e) Under [Tags], add tag(s) if desired
+	8) In [Roles], search of role to confirm successful creation
+	*** Note: https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html
+	
+############### Create a Lambda Function #####################	
+	1) Ensure region is "Asia Pacific (Singapore) ap-southeast-1" to change region
+	2) Go to [Services] Menu and nagvigate to:
+		a) [Compute] > [Lambda] > [Roles] (left menu) > click [Create function] (right side)
+	3) In [Create function] page, do the following:
+		a) For [Trusted entity type], ensure [Author from scratch] is selected
+		b) In [Function name] textbox, enter "Desired Function Name" 
+		c) Under [Run Time], select "Python 3.9"
+		d) Under [Architecture], ensure "x86_64" is selected
+	4) Under [Permissions], expose [Change default execution role]
+	5) Under [Execution role], select "Use an existing role"
+	6) Under [Existing role], selected the newly created role above
+	7) Under [Advanced settings]:
+		a) For [Enable Code signing], default
+		b) For [Enable function URL], default
+		c) For [Enable tags], default
+		d) For [Enable VPC], check
+			i) Under [VPC], select the [VPC created above]
+			ii) Under [Subnets], selected the [2 Private subnets]
+			iii) Under [Security groups], choose [Default security group] or create one if desired
+	7) Click [Create function]
+
+############### Create a API Gateway Function #####################	
+	1) Ensure region is "Asia Pacific (Singapore) ap-southeast-1" to change region
+	2) Go to [Services] Menu and nagvigate to:
+		a) [Networking & Content Delivery] > [API Gateway]
+	3) Under [Rest API] without private, click [Build]
+	4) Under [Choose the protocol], select [REST]
+	5) Under [Create new API], select [New API]
+	6) Under [Settings]:
+		a) Enter desired [API name*]
+		b) Enter desired [description]
+		c) For [Enpoint Type], ensure [Regional]
+	7) Click [Create API]
+
+############### Update Lambda with project package #####################	
+	1) Package Python codes into a zip file, go to project folder & open bash
+		a) mkdir deployment
+		b) cp -r ./mockData ./deployment
+		c) cp -r ./models ./deployment
+		d) cp main.py ./deployment
+		e) cd env/lib/python3.9/site-packages/
+		f) zip -r9 ../../../../deployment/function.zip .
+		g) cd ../../../../deployment/
+		h) zip -r9 ./function.zip .
+	2) Navigate to the [Created Lambda function]
+		a) Click [Upload from] & select [function.zip] & click [Save]
+		b) Under [Runtime settings], click [Edit]
+			i) Under [Handler], change value to "main.handler"
+	3) clean up project folder, go back to bash & execute "rm -rf deployment/"
+
+############### Update API Gateway to invoke Lambda function #####################	
+	1) Navigate to the [Created API in API Gateway]
+	2) Click [Actions]
+		a) Click [Create Method]
+		b) In the [empty dropdown], select [Any] & click [Tick]
+		c) Under [Integration type], ensure [Lambda Function] is created
+		d) Under [Use Lambda Proxy integration], check the box
+		e) Under [Lambda Region], select [one of the private subnet specified above]
+		f) Under [Lambda Function], specify the [Created Lambda]
+		e) Click [Save]
+		f) Click [Ok] if permission box pops out
+		*** Note: At this point, you can invoke a test	
+	3) Select the same [Any], click [Actions]
+		a) Click [Create resource]
+		b) Under [Configure as proxy resource], check the box
+		c) Click [Create Resource]
+		d) Select [2nd Any under {proxy+}]:
+			i) For [Integration type], ensure [Lambda Function Proxy]
+			ii) For [Lambda Region], select [same region as above]
+			iii) For [Lambda], select [same region as above]
+			iv) Click [Save]
+			v) Click [Ok] if permission box pops out
+	4) To deploy API, click [Actions]
+		a) Click [Deploy API]
+		b) Under [Deployment stage], select [New Stage]
+		c) For [Stange name*], enter "dev" or desired name
+		d) For [Stage description], enter "for development" or desired value
+		e) For [Deployment description], ensure "first deployment for new stage"
+		f) Click the [Url] to verify
+		g) Further verify in Postman if required
+		
+###############	 Sample name ###############
+Lambda Role: cxy-lambda-test-role
+Lamda function: cxy-test-lambda-manual
+
+
+Zipping project dependency and throw into another folder:
+
+*** https://www.deadbear.io/simple-serverless-fastapi-with-aws-lambda/

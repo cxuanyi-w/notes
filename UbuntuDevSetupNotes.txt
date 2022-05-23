@@ -1,0 +1,14 @@
+############### Live Share #####################	
+	1) Install [Live Share] extension in VSCode
+	2) Go extension from the left-most [Extension Bar]
+	3) Click [share] & if no response, execute the following:
+		a) sudo apt-get update -y
+		b) sudo apt-get install -y libssl1.1
+		***Note:
+			- Must be version libssl1.1
+			- https://zoomadmin.com/HowToInstall/UbuntuPackage/libssl1.1
+	4) Click [join] & if no response, execute the following:
+		a) Open "/etc/ssl/openssl.cnf" in root
+		b) Add "CLR_OPENSSL_VERSION_OVERRIDE=1.1" below "openssl_conf = openssl_init"
+		*** Notes:
+			- https://lifesaver.codes/answer/vs-code-starting-collaboration-session-could-not-connect-to-the-server-https-connection-failed-verify-there-are-no-self-signed-certificates-or-custom--2216
