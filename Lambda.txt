@@ -35,6 +35,9 @@
 	5) In [Add Permission] page, add:
 		a) AWSLambdaBasicExecutionRole
 		b) AWSXRayDaemonWriteAccess
+		*** note:
+			- if encounter "The provided execution role does not have permissions to call CreateNetworkInterface on EC2" error
+				- Follow: https://stackoverflow.com/questions/41177965/aws-lambdathe-provided-execution-role-does-not-have-permissions-to-call-describ
 	6) Click [Next] to go to [Name, review, and create] page
 	7) In [Name, review, and create] page
 		a) In [Role name] textbox, enter "Desired Role Name"

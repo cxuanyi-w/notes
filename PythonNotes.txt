@@ -1,7 +1,7 @@
 ################# Setup different version of linux ################
 	1) Follow: https://www.linuxcapable.com/how-to-install-python-3-9-on-ubuntu-22-04-lts/
 
-	2) Execute "sudo apt install python3.9-venv"
+	2) In addition to the above: Execute "sudo apt install python3.9-venv"
 
 
 ################### create venv ###################

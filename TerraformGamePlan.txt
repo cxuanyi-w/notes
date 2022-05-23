@@ -1,0 +1,13 @@
+Create access key from IAM
+Terraform create VPC with 4 subnet
+	- https://adamtheautomator.com/terraform-vpc/
+Terraform create S3 bucket for project package
+	- https://www.bacancytechnology.com/blog/aws-s3-bucket-using-terraform
+Terraform create role for lambda
+	- https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function
+	- https://stackoverflow.com/questions/57288992/terraform-how-to-create-iam-role-for-aws-lambda-and-deploy-both
+Terraform create lambda & upload project package via S3
+	- https://stackoverflow.com/questions/57288992/terraform-how-to-create-iam-role-for-aws-lambda-and-deploy-both
+Terraform create API gateway & link to lambda
+	- https://medium.com/paul-zhao-projects/serverless-applications-with-aws-lambda-and-api-gateway-using-terraform-37d3de435d21
+Verify & test deployment
