@@ -44,12 +44,17 @@
 		- autoformat with 1 level of aggresiveness
 	2) autopep8 --in-place --aggressive --aggressive ./test.py
 		- autoformat with 2 level of aggresiveness
-	3)
+	3) autopep8 --in-place --recursive ./src
 	*** Note: 
 		Formatting via commands automatically takes from pyproject.toml
 		Aggressive level should be set in pyproject.toml		
 ################### Other useful command ###################
 	1) pip list
 		- show list of packages installed and versions
-	2) python3.9 -m pytest
-	3) pylint --rcfile=.pylintrc ./**/*.py
+	2) python3.9 -m pytest -sv
+	3) pylint --rcfile=.pylintrc ./**/*.py 
+	4) pip install from pyproject.toml
+		a) With [dev dependencies]
+			- pip install . .[dev] -v
+		b) Without [dev dependencies]
+			- pip install . -v

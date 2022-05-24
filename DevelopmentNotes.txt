@@ -106,5 +106,5 @@
 		> git config --global user.name "xuanyi_chen"
 		> git config --global user.email "chen_xuanyi@hdb.gov.sg"
 	2) Local
-		> git config --global user.name "cxuanyi-w"
+		> git config --local user.name "cxuanyi-w"
 		> git config --global user.email "cxuanyi.w@gmail.com"
