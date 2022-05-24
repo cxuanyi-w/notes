@@ -51,3 +51,5 @@
 ################### Other useful command ###################
 	1) pip list
 		- show list of packages installed and versions
+	2) python3.9 -m pytest
+	3) pylint --rcfile=.pylintrc ./**/*.py

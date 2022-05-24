@@ -4,7 +4,8 @@
 	3) Copy key to project folder (or, desired folder)
 	
 ############### Install Terraform #####################
-
+	1) https://learn.hashicorp.com/tutorials/terraform/install-cli
+		- Remember to select Linux tab
 
 
 ############### Modules & Directory #####################
@@ -253,5 +254,8 @@
 				To be available
 			============================================================
 			
+*** Troubleshooting ***
+ - https://www.terraform.io/cli/commands/console
+ 
 *** Note:
 	- https://cloud-images.ubuntu.com/locator/ec2/

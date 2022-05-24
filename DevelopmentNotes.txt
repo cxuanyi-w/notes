@@ -93,17 +93,18 @@
 		> git stash list									//
 		> git stash apply STASH-NAME applies the changes and leaves a copy in the stash
 		> git stash pop STASH-NAME applies the changes and removes the files from the stash
+	+++ Add origin +++
+		> git remote add origin "url"
+	+++ New report first commit +++
+		> git commit -m "initial commit"
+		> git push origin
 
 
-
-
-####
-new report ops:
-	git
-	git commit -m "initial commit"
-	git push origin main
 	
-	
-	
-git config --global user.name "xuanyi_chen"
-git config --global user.email "chen_xuanyi@hdb.gov.sg"
+############### Setting local config #####################
+	1) Global
+		> git config --global user.name "xuanyi_chen"
+		> git config --global user.email "chen_xuanyi@hdb.gov.sg"
+	2) Local
+		> git config --global user.name "cxuanyi-w"
+		> git config --global user.email "cxuanyi.w@gmail.com"
