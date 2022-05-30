@@ -12,7 +12,7 @@
 	
 ############### GIT Routines #####################
 	+++ Morning routine for front end only +++	
-		1) git checkout dev
+		1) git checkout dev (gco dev)
 			- This will switch to dev
 		2) git pull //Do not specify origin or branch, this will pull everything
 		3) git checkout feature-branch
@@ -81,6 +81,7 @@
 		> git checkout -b "Branch Name"
 	+++ CREATE branch from branch +++
 		> git checkout -b "Branch Name" "dev"
+		> gcb "Branch Name" "dev"
 	+++ PUSH local branch to REMOTE +++
 		> git push <remote> <branch>
 		> git push origin "hotfix/xy_eslint-plugins"
@@ -93,12 +94,13 @@
 		> git stash list									//
 		> git stash apply STASH-NAME applies the changes and leaves a copy in the stash
 		> git stash pop STASH-NAME applies the changes and removes the files from the stash
-	+++ Add origin +++
+	+++ Add origin +++"
 		> git remote add origin "url"
 	+++ New report first commit +++
 		> git commit -m "initial commit"
 		> git push origin
-
+	*** Note:
+		- Shortcuts: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
 
 	
 ############### Setting local config #####################
@@ -107,4 +109,9 @@
 		> git config --global user.email "chen_xuanyi@hdb.gov.sg"
 	2) Local
 		> git config --local user.name "cxuanyi-w"
-		> git config --global user.email "cxuanyi.w@gmail.com"
+		> git config --local user.email "cxuanyi.w@gmail.com"
+
+########### Git hub push ####################
+git push https://${GITHUB_KEY}@github.com/cxuanyi-w/terraform-vpc-lambda-apigw-lab.git  
+git push https://${GITHUB_KEY}@github.com/cxuanyi-w/terraform-aurora-lab.git  
+git push https://${GITHUB_KEY}@github.com/cxuanyi-w/terraform-ec2.git

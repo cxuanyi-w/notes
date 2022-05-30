@@ -9,5 +9,5 @@ Terraform create role for lambda
 Terraform create lambda & upload project package via S3
 	- https://stackoverflow.com/questions/57288992/terraform-how-to-create-iam-role-for-aws-lambda-and-deploy-both
 Terraform create API gateway & link to lambda
-	- https://medium.com/paul-zhao-projects/serverless-applications-with-aws-lambda-and-api-gateway-using-terraform-37d3de435d21
+	- https://hands-on.cloud/managing-amazon-api-gateway-using-terraform/#h-setting-up-the-api-gateway-module
 Verify & test deployment

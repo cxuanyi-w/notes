@@ -88,17 +88,15 @@
 ############### Update Lambda with project package #####################	
 	1) Package Python codes into a zip file, go to project folder & open bash
 		a) mkdir deployment
-		b) cp -r ./mockData ./deployment
-		c) cp -r ./models ./deployment
-		d) cp main.py ./deployment
-		e) cd env/lib/python3.9/site-packages/
-		f) zip -r9 ../../../../deployment/function.zip .
-		g) cd ../../../../deployment/
-		h) zip -r9 ./function.zip .
+		b) cp -r ./src ./deployment
+		c) cd env/lib/python3.9/site-packages/
+		d) zip -r9 ../../../../deployment/function.zip .
+		e) cd ../../../../deployment/
+		f) zip -r9 ./function.zip .
 	2) Navigate to the [Created Lambda function]
 		a) Click [Upload from] & select [function.zip] & click [Save]
 		b) Under [Runtime settings], click [Edit]
-			i) Under [Handler], change value to "main.handler"
+			i) Under [Handler], change value to "src.main.handler"
 	3) clean up project folder, go back to bash & execute "rm -rf deployment/"
 
 ############### Update API Gateway to invoke Lambda function #####################	

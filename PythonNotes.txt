@@ -27,7 +27,7 @@
 	3) In [activated python env], run:
 		- "pip install -r .\requirements.txt" or "pip install -r ./requirements.txt"
 	 
-	5) run "uvicorn main:app --reload" or "uvicorn main:app --reload --host 0.0.0.0"
+	5) run "uvicorn src.main:app --reload" or "uvicorn src.main:app --reload --host 0.0.0.0"
 
 	6) "deactivate" exit 
 
@@ -54,7 +54,11 @@
 	2) python3.9 -m pytest -sv
 	3) pylint --rcfile=.pylintrc ./**/*.py 
 	4) pip install from pyproject.toml
-		a) With [dev dependencies]
-			- pip install . .[dev] -v
-		b) Without [dev dependencies]
+		a) With [main dependencies] & [dev dependencies]
+			- pip install . .'[dev]' -v
+		b) Without [main dependencies] only
 			- pip install . -v
+		a) With [dev dependencies] only
+			- pip install .'[dev]' -v
+	5) Remove all cache & build folders
+		- find . | grep -E "(/__pycache__$|\.pyc$|\.pyo|/.pytest_cache|/build|/*.egg-info$)" | xargs rm -rf

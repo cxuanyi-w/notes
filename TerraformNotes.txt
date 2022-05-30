@@ -253,6 +253,7 @@
 			============================================================
 				To be available
 			============================================================
+*** Checkov  ***
 			
 *** Troubleshooting ***
  - https://www.terraform.io/cli/commands/console
