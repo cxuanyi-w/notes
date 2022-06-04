@@ -116,7 +116,7 @@ source $ZSH/oh-my-zsh.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Customized alias
-alias sea="source ./env/bin/activate"
+alias sea="source ./venv/bin/activate"
 alias seda="deactivate"
 alias tfaa="tfa --auto-approve"
 alias tfda="tfd --auto-approve"
