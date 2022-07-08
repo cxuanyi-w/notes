@@ -1,0 +1,29 @@
+############### Change WSL Distro Name ###############
+	+ https://superuser.com/questions/1507237/how-to-change-the-name-of-a-wsl-distro-to-reflect-the-actual-distro
+	+ Registry entry:
+			- Computer\HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Lxss
+			*** Note: Delete whole entry (e.g. {xxxx-xxx-xxx} under Lxss if required
+############### Arch Linux ###############
+	+ https://computingforgeeks.com/how-to-run-arch-linux-on-windows-wsl/
+
+############### Update Ubuntu to 22.04 ###############
+	+ C:\Users\Win10User\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu20.04onWindows_79rhkp1fndgsc\LocalState
+	
+############### WSL Ubuntu Image ###############
+	+ C:\Users\Win10User\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu20.04onWindows_79rhkp1fndgsc
+	
+############### Backup & restore WSL instance ###############
+	+ https://computingforgeeks.com/how-to-run-arch-linux-on-windows-wsl/
+	+ Steps:
+		> wsl --shutdown
+		> wsl --export Ubuntu-22.04 C:\_WSL\backups\Ubuntu-22.04_04Jun2022_1.tar
+		> wsl --unregister <Distro name>
+			*** Warning: Do not run "wsl --unregister" as it will unregister all instances.
+		> wsl --import Ubuntu-22.04 C:\_WSL\images\Ubuntu-22.04 C:\_WSL\backups\Ubuntu-22.04_09Jun2022_1_beforeDocker.tar
+		> Go to [regedit], and change [target image user UUID, "DefaultUid"] for login to [1000 Decimal]
+			- https://github.com/microsoft/WSL/issues/4276
+			- HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Lxss
+		> wsl --setdefault Ubuntu-22.04
+############### WSL Commands ###############
+	> wsl -d <DistributionName>
+		- Run specific distro

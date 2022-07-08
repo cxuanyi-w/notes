@@ -15,3 +15,7 @@
 	
 ############### Up Level Bash #####################	
 	- https://medium.com/@satriajanaka09/setup-zsh-oh-my-zsh-powerlevel10k-on-ubuntu-20-04-c4a4052508fd
+	- Install ripgrep
+		$ sudo apt-get install ripgrep
+	- Install vim
+		$ sudo apt-get install vim

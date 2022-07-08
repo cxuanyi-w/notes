@@ -87,174 +87,25 @@
 		- For production, it is recommended to use the above.
 		- ["terraform apply" without arguments] is a shortcut, it does the above & removes the output file.
 		
-		
-############### Terraform Variable Types #####################
-	1) Simple variable types:
-		- string
-			> Example:
-				============================================================
-					variable "template" {
-					  type 	  = string
-					  default = "01000000-0000-4000-8000-000030080200"
-					}
-				============================================================
-		- number
-			> Example:
-				============================================================
-					variable "variable_name" {
-					  type 	  = number
-					  default = 123.2
-					}
-				============================================================
-		- bool
-			> Example:
-				============================================================
-					variable "variable_name" {
-					  type = bool
-					  default = true
-					}
-				============================================================
-	2) Complex variable types:
-		- list(<TYPE>)
-			> A sequence of values identified by consecutive whole numbers starting with zero.
-			> Always returned ordered
-			> Example:
-				============================================================
-					variable "users" {
-					  type    = list
-					  default = ["root", "user1", "user2"]
-					}
-				============================================================	
-		- set(<TYPE>)
-			> A collection of unique values that do not have any secondary identifiers or ordering.
-			> Example:
-				============================================================
-					# Set of Numbers
-					variable "my_set" {
-					  type = set(number)
-					}
-				============================================================	
-		- map(<TYPE>)
-			> A collection of values where each is identified by a string label.
-			> Example:
-				============================================================
-					variable "plans" {
-					  type = map
-					  default = {
-						"5USD"  = "1xCPU-1GB"
-						"10USD" = "1xCPU-2GB"
-						"20USD" = "2xCPU-4GB"
-					  }
-					}
-				============================================================		
-		- object({<ATTR NAME> = <TYPE>, ... })
-			> A collection of named attributes that each have their own type.
-			> Example:
-				============================================================
-					variable bucket_settings {
-					  type = object({
-						location           = string
-						lifecycle_rules = map(object({
-						  action = map(string)
-						  condition = object({
-							age                   = number
-							with_state            = string
-						  })
-						}))
-					  })
-					}
-				============================================================	
-		- tuple([<TYPE>, ...])
-			> A sequence of elements with different types identified by consecutive whole numbers starting with zero
-			> Example:
-				============================================================
-					variable "launchDate" { // name of the variable
-					  type = tuple([number, string]) // type of the variable, a list that accepts two values, the first being a number and the second being a string 
-					  default = [4, "September"]
-					}
-				============================================================	
-	3) Special types:
-		- null
-	*** Note:
-		- https://www.terraform.io/language/expressions/types
-		- https://www.terraform.io/language/expressions/type-constraints
-		
 ############### Terraform Functions #####################
 
 	*** Note:
 		- https://www.terraform.io/language/functions
 		
-############### Terraform Files #####################
-	1) Instance.tf
-		- General stucture:
-			============================================================
-				provider "aws" {
-					access_key = "ACCESS_KEY_HERE"							//Should be taken from .tfvars
-					secret_key = "SECRET_KEY_HERE"							//Should be taken from .tfvars
-					region = "us-east-1"									//Should be taken from .tfvars
-				}
-				
-				resource "aws_key_pair" "xy-key" {							//for SSH
-					key_name = "xy_key"
-					public)key = "ssh-rsa public key"
-				}
-				
-				resource "aws_instance" "example" {
-					ami = "ami-id729a60"
-					instance_type = "t2.micro"
-					key_name = "${aws_key_pair.myley.key_name}"				//Taken from above, for SSH
-					
-					provisioner "file" {									//for uploading file to dest server
-						source = "app.conf"
-						destination = "/erc/myapp.conf"
-						connection {										//for remote connection to dest server, by default type="SSH"
-							user = "$var.instance_username"					//usually this should not be used, instead should be SSH keypairs
-							password = "$var.instance_password"
-						}
-					}
-					provisioner "remote-exec" {								//to execute cmds remotely when running terraform scripts
-						inline = [
-							"chmod +x /opt/script.sh",
-							"/opt/script.sh arguments"
-						]
-					}
-				}
-			============================================================
-	*** Note: This structure above should be split into other files
-	2) Provider.tf
-		- General stucture:
-			============================================================
-				provider "aws" {
-					access_key = "${var.AWS_ACCESS_KEY}"
-					secret_key =  "${var.AWS_SECRET_KEY}"
-					region =  "${var.AWS_REGION}"
-				}
-			============================================================
-	3) Vars.tf	
-		- General stucture:
-			============================================================
-				variable "AWS_ACCESS_KEY" {}
-				variable "AWS_SECRET_KEY" {}
-				variable "AWS_REGION" {
-					default = "actual_value"
-				}
-			============================================================
-	4) Terraform.tfvars
-		- Recommended for storing secrets and should be ignored for GIT
-		- General stucture:
-			============================================================
-				AWS_ACCESS_KEY = "actual_value"
-				AWS_SECRET_KEY = "actual_value"
-				AWS_REGION = "actual_value"
-			============================================================
-	5) Script.sh
-		- this is optional
-		- General stucture:
-			============================================================
-				To be available
-			============================================================
-*** Checkov  ***
-			
+*** Checkov & Terraform fmt  ***
+	checkov -d . --skip-path env
+	terraform fmt -check
+	
+*** Terraform commands  ***			
+	tflocal apply -var-file=env/dev.tfvars.json -var aws_account_name="xuanyic" -var aws-account-id="530641219399"
+	tflocal plan -var-file=env/dev.tfvars.json -var aws_account_name="xuanyic" -var aws-account-id="530641219399"
+	
+	tfaa -var-file=env/dev.tfvars.json -var aws_account_name="xuanyic" -var aws-account-id="530641219399"
+	tfp -var-file=env/dev.tfvars.json -var aws_account_name="xuanyic" -var aws-account-id="530641219399"
+
+	tfp -var-file=env/dev.tfvars.json -var aws-account-name="xuanyic" -var aws-account-id="530641219399" -var environment=sandbox 
+	tfaa -var-file=env/dev.tfvars.json -var aws-account-name="xuanyic" -var aws-account-id="530641219399" -var environment=sandbox 
+	tfda -var-file=env/dev.tfvars.json -var aws-account_name="xuanyic" -var aws-account-id="530641219399" -var environment=sandbox 
 *** Troubleshooting ***
  - https://www.terraform.io/cli/commands/console
  

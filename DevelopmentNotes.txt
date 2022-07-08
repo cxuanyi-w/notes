@@ -112,6 +112,7 @@
 		> git config --local user.email "cxuanyi.w@gmail.com"
 
 ########### Git hub push ####################
+git push https://${GITHUB_KEY}@github.com/cxuanyi-w/notes 
 git push https://${GITHUB_KEY}@github.com/cxuanyi-w/terraform-vpc-lambda-apigw-lab.git  
 git push https://${GITHUB_KEY}@github.com/cxuanyi-w/terraform-aurora-lab.git  
 git push https://${GITHUB_KEY}@github.com/cxuanyi-w/terraform-ec2.git

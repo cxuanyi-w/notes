@@ -1,10 +1,18 @@
 ############## File Management ##############
-	1) "rm -rf dirname"
+	> rm -rf dirname
 		- remove directory with files
-	2) ls -la
+	> ls -la
 		- Show hidden files & folder
 		
 ############## Useful linux command ################
-$ ls -l | awk '{k=0;for(i=0;i<=8;i++)k+=((substr($1,i+2,1)~/[rwx]/)*2^(8-i));if(k)printf("%0o ",k);print}' | grep test-keypair
-			 
-$ chmod 400 *.pem
+	$ ls -l | awk '{k=0;for(i=0;i<=8;i++)k+=((substr($1,i+2,1)~/[rwx]/)*2^(8-i));if(k)printf("%0o ",k);print}' | grep test-keypair
+				 
+	$ chmod 400 *.pem
+
+
+############ Check linux version ############
+	$ lsb_release -a
+	
+############ Windows SSH to Localhost ############
+	> ssh -t developer-cxy@localhost
+	

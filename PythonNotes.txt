@@ -49,16 +49,17 @@
 		Formatting via commands automatically takes from pyproject.toml
 		Aggressive level should be set in pyproject.toml		
 ################### Other useful command ###################
-	1) pip list
+	1) python3.9 -m venv [actual env name]
+	2) pip list
 		- show list of packages installed and versions
-	2) python3.9 -m pytest -sv
-	3) pylint --rcfile=.pylintrc ./**/*.py 
-	4) pip install from pyproject.toml
+	3) python3.9 -m pytest -sv
+	4) pylint --rcfile=.pylintrc ./**/*.py 
+	5) pip install from pyproject.toml
 		a) With [main dependencies] & [dev dependencies]
 			- pip install . .'[dev]' -v
 		b) Without [main dependencies] only
 			- pip install . -v
 		a) With [dev dependencies] only
 			- pip install .'[dev]' -v
-	5) Remove all cache & build folders
+	6) Remove all cache & build folders
 		- find . | grep -E "(/__pycache__$|\.pyc$|\.pyo|/.pytest_cache|/build|/*.egg-info$)" | xargs rm -rf

@@ -1,0 +1,80 @@
+##### Docker Commands #####
+	$ sudo docker run hello-world
+		> Run docker image if not found locally it will take from publi
+	$ docker ps
+		> list containers
+	$ docker compose pull
+		> Pulls an image associated with a service defined in a docker-compose.yml 
+			or docker-stack.yml file, but does not start containers based on those images.
+	$ docker compose up -d
+		> Builds, (re)creates, starts, and attaches to containers for a service.
+		> "-d" for running in background
+	
+	
+	docker compose logs -f localstack_main
+	cat docker-compose.yml
+	docker compose logs -f localstack
+	docker compose down
+	docker compose logs -f localstack
+	docker compose up -d
+	docker compose logs -f localstack
+	cat docker-compose.
+
+
+##### Podman Commands #####
+	$ podman search --limit 3 [image name]
+		> search remote for images and limit result to 3
+	$ podman pod list
+		> list pods
+	$ podman ps
+		> list running containers
+	$ [podman pull quay.io/quay/busybox] OR [$ podman pull docker.io/nginx]
+		> pull images from different container repo
+	$ podman images
+		> list local images
+	$ podman stop [container-id]/[specified container-name]
+		> stop a running container
+	$ podman rm [container-id]
+		> rm a container
+	$ podman rmi [image-id]
+		> remove all dangling images
+	$ podman run 
+		> [-dit]:
+			- [d] to run cotainer in background
+			- [it] to type some commands on your container
+		> [--name] 
+			- to specify name for the running container
+		> [-p host-port:container-port]
+			- map host-port to container-port
+		> [image name]
+			- Run specific image
+		> [--mount type=bind,source=desired-host-path,target=desired-container-path]
+			> Bind mounts have been available in Docker since its earliest days for data persisting. 
+			> Bind mounts will mount a file or directory on to your container from your host machine, which you can then 
+				reference via its absolute path.
+			> Bind mounts give access to sensitive files. 
+			> Bind mounts allow the change of the host filesystem through processes running in a container. 
+				This includes creating, modifying, and deleting system files and directories, 
+				which can have pretty severe security implications & could even impact non-Docker processes.
+		> [--v desired-host-path:desired-container-path]
+			> In Docker volumes, storage is not coupled to the lifecycle of the container, but instead exists outside of 	
+				it. This has many benefits. For one, you can kill your container as many times as you want and still have 
+				your data persisted. It’s also easy to reuse storage in multiple containers; for example, one container 
+				writes to the storage while another reads from it.
+			> Since volumes are not tied to any container, you can easily attach them to multiple running containers at the 
+				same time. You’ll also find that volumes don’t increase the size of the Docker container using them. Lastly, you can use the Docker CLI to manage volumes, for example, retrieving the list of volumes or removing unused volumes.
+		> [-e/--env DESIRED-ENV-NAME=desired-value]
+			- Set environment variable in the container
+		> E.g.: podman run --name docker-nginx -p 8080:80 docker.io/nginx
+			+ Run a container 
+				- With name [docker-ngix] 
+				- Using [docker.io/nginx] image 
+				- With [host port 8080] to [container port 80]
+	
+	** Pod is equivalent to k8 pod.
+	** Pod is a group of related containers
+	** You cannot use ports below 1024 in rootless mode (Normal user mode)
+		> Because the normal user container namespace does have privileges to map those ports. 
+		> If you want to map host ports less than 1024 using podman,
+			you should run podman as the root user or with sudo privileges as shown below.
+
